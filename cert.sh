@@ -1,9 +1,10 @@
-#!/bin/bash -ex
+#!/bin/sh -ex
 
 if [ "apply" = "$1" ]
 then
     mkdir /tmp/backup || true
     echo "Deleting following files"
+    apk add ca-certificates sed sudo 
     sudo ls -l /etc/ssl/certs | grep DST_Root_CA_X3.pem | awk '{print $9}' 
     sudo ls -l /etc/ssl/certs | grep DST_Root_CA_X3.pem | awk '{print $9}' | xargs rm -f 
     echo "Deleting /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt"
@@ -80,7 +81,6 @@ else
     echo "RUNNING IN DRY MODE, RERUN WITH ARGUMENT  $0 apply"
     echo "Deleting following files"
     ls -l /etc/ssl/certs | grep DST_Root_CA_X3.pem | awk '{print $9}'
-    ls -l /usr/share/ca-certificates/mozilla | grep DST_Root_CA_X3 
     echo "Deleting /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt"
     echo "Updating /etc/ca-certificates.conf and running sudo update-ca-certificates --fresh"
 
