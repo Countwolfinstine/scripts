@@ -69,7 +69,7 @@ EOC
         then
             timestamp=$(date +%s) 
             echo "updating $path"
-            keytool -trustcacerts -keystore $path -storepass changeit -importcert -alias isgrrootx1_$timestamp -file "/tmp/ISRG_Root_X1.crt" -noprompt
+            sudo keytool -trustcacerts -keystore $path -storepass changeit -importcert -alias isgrrootx1_$timestamp -file "/tmp/ISRG_Root_X1.crt" -noprompt
             sleep 2
         fi
     done
