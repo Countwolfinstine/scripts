@@ -61,8 +61,6 @@ EOC
         echo "ISRG_Root_X1 Already present"
     fi
 
-    if [ "java" = "$2" ]
-    then
     for path in $(find / -name cacerts 2>/dev/null)
     do
         if [ "/etc/default/cacerts" != $path ]
@@ -70,12 +68,10 @@ EOC
         then
             timestamp=$(date +%s) 
             echo "updating $path"
-            sudo keytool -trustcacerts -keystore $path -storepass changeit -importcert -alias isgrrootx1_$timestamp -file "/tmp/ISRG_Root_X1.crt" -noprompt
+            sudo keytool -trustcacerts -keystore $path -storepass changeit -importcert -alias isgrrootx1_$timestamp -file "/tmp/ISRG_Root_X1.crt" -noprompt  || echo “keytool not present skipping”
             sleep 2
         fi
     done
-    rm /tmp/ISRG_Root_X1.crt
-    fi
 
 else
     echo "RUNNING IN DRY MODE, RERUN WITH ARGUMENT  $0 apply"
