@@ -1,5 +1,8 @@
 #!/bin/sh -ex
 
+# Script to fix older version of openssl by removing x3 cert and adding x1 if needed.
+# https://docs.certifytheweb.com/docs/kb/kb-202109-letsencrypt/
+
 if [ "apply" = "$1" ]
 then
     mkdir /tmp/backup || true
